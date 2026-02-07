@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For You ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 2s ease;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>🎂 Happy Birthday 🎂</h1>
+    <h2>dii pondati ❤️</h2>
+
+    <p>
+      Today is special… because **you** were born today 🌸  
+      And I really wanted to be part of your smile.
+    </p>
+
+    <p>
+      I know I may have hurt you, knowingly or unknowingly.  
+      For that… **I’m truly sorry** 😔  
+      Not just saying it — I mean it from my heart.
+    </p>
+
+    <p>
+      You matter to me.  
+      Your feelings matter to me.  
+      And no matter what, I wish you happiness — today and always ✨
+    </p>
+
+    <p>
+      💖 I LOVE YOU 💖  
+      Not to pressure you…  
+      Just to let you know my heart is honest.
+    </p>
+
+    <footer>
+      Always here for you ❤️
+    </footer>
+  </div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+    setInterval(createHeart, 450);
+  </script>
+
+</body>
+</html>
