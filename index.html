@@ -14,6 +14,11 @@
       overflow-x: hidden;
     }
 
+    /* ---------- COMMON ---------- */
+    .hidden {
+      display: none !important;
+    }
+
     /* ---------- REVEAL SCREEN ---------- */
     .reveal {
       height: 100vh;
@@ -28,12 +33,11 @@
 
     .reveal h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
     }
 
     .reveal h2 {
       font-size: 2rem;
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
 
     .reveal p {
@@ -42,7 +46,7 @@
       margin-bottom: 25px;
     }
 
-    .reveal button {
+    button {
       background: white;
       color: #ff5f9e;
       border: none;
@@ -51,35 +55,35 @@
       border-radius: 30px;
       cursor: pointer;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
     }
 
-    .reveal button:hover {
-      transform: scale(1.1);
+    button:hover {
+      transform: scale(1.05);
     }
 
-    /* ---------- MAIN CARD ---------- */
+    /* ---------- SLIDES ---------- */
     .card {
-      max-width: 850px;
+      max-width: 800px;
       margin: 60px auto;
       background: rgba(255,255,255,0.15);
       border-radius: 22px;
       padding: 35px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: fadeInUp 2s ease;
+      animation: fadeInUp 1.5s ease;
     }
 
-    .card h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
+    .slide {
+      display: none;
+      font-size: 1.3rem;
+      line-height: 1.8;
     }
 
-    .card h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
+    .slide.active {
+      display: block;
     }
 
+    /* ---------- MAIN MESSAGE ---------- */
     .message {
       font-size: 1.25rem;
       line-height: 1.8;
@@ -116,24 +120,55 @@
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .hidden {
-      display: none !important;
-    }
   </style>
 </head>
 
 <body>
 
-<!-- 🎁 REVEAL SCREEN -->
+<!-- 🎁 REVEAL -->
 <div class="reveal" id="revealScreen">
   <h1>🎁</h1>
   <h2>Hey dii…</h2>
-  <p>I made something from my heart ❤️<br>Open it when you’re ready.</p>
+  <p>I made something gentle for you ❤️<br>Open it when you’re ready.</p>
   <button onclick="reveal()">Tap to open</button>
 </div>
 
-<!-- 💖 MAIN CONTENT -->
+<!-- 🌸 SLIDES (SOFT & IMPRESSIVE) -->
+<div class="card hidden" id="slides">
+  <div class="slide active">
+    <p>
+      Before you continue…  
+      I hope this moment feels calm and light 🌸  
+      No rush.
+    </p>
+  </div>
+
+  <div class="slide">
+    <p>
+      Some connections don’t need many words.  
+      They’re felt quietly… and remembered kindly.
+    </p>
+  </div>
+
+  <div class="slide">
+    <p>
+      A few moments, a few smiles,  
+      still feel warm when I think of them.
+    </p>
+  </div>
+
+  <div class="slide">
+    <p>
+      Whatever your path is,  
+      I truly wish you peace and happiness ✨  
+      This comes from a good place.
+    </p>
+  </div>
+
+  <button onclick="nextSlide()">Next</button>
+</div>
+
+<!-- 🎂 FINAL BIRTHDAY MESSAGE -->
 <div class="card hidden" id="mainContent">
   <h1>🎂 Happy Birthday 🎂</h1>
   <h2>dii pondati ❤️</h2>
@@ -141,68 +176,81 @@
   <div class="message" id="typeText"></div>
 
   <footer>
-    Always here for you ❤️
+    Always wishing you well ❤️
   </footer>
 </div>
 
-<!-- 🎶 BACKGROUND MUSIC -->
+<!-- 🎶 MUSIC -->
 <audio id="bgMusic" loop>
   <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  /* FORCE HIDE MAIN CONTENT ON LOAD */
+  /* FORCE STATE */
   document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("slides").classList.add("hidden");
     document.getElementById("mainContent").classList.add("hidden");
   });
 
-  /* ---------- REVEAL ---------- */
+  /* REVEAL */
   function reveal() {
     document.getElementById("revealScreen").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
+    document.getElementById("slides").classList.remove("hidden");
     document.getElementById("bgMusic").play();
-    startTyping();
   }
 
-  /* ---------- TYPEWRITER MESSAGE ---------- */
+  /* SLIDES */
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function nextSlide() {
+    slides[currentSlide].classList.remove("active");
+    currentSlide++;
+
+    if (currentSlide < slides.length) {
+      slides[currentSlide].classList.add("active");
+    } else {
+      document.getElementById("slides").classList.add("hidden");
+      document.getElementById("mainContent").classList.remove("hidden");
+      startTyping();
+    }
+  }
+
+  /* TYPEWRITER */
   const lines = [
-    "Today is special… because you were born today ✨",
+    "Today feels a little special… because it’s your birthday ✨",
     "",
-    "I know I may have hurt you, knowingly or unknowingly.",
-    "For that… I’m truly sorry 😔",
-    "Not just saying it — I mean it from my heart.",
+    "I just wanted to wish you warmth,",
+    "peace, and a gentle smile today.",
     "",
-    "You matter to me.",
-    "Your feelings matter to me.",
+    "May this year bring you clarity,",
+    "happiness, and calm moments 🌸",
     "",
-    "No matter what, I wish you happiness — today and always 🌸",
+    "💖 Happy Birthday 💖",
     "",
-    "💖 I LOVE YOU 💖",
-    "Not to pressure you…",
-    "Just to let you know my heart is honest."
+    "From someone who wishes you well."
   ];
 
   let lineIndex = 0;
   let charIndex = 0;
-  const speed = 35;
 
   function startTyping() {
     if (lineIndex < lines.length) {
-      const currentLine = lines[lineIndex];
-      if (charIndex < currentLine.length) {
-        document.getElementById("typeText").innerHTML += currentLine.charAt(charIndex);
+      const line = lines[lineIndex];
+      if (charIndex < line.length) {
+        document.getElementById("typeText").innerHTML += line.charAt(charIndex);
         charIndex++;
-        setTimeout(startTyping, speed);
+        setTimeout(startTyping, 35);
       } else {
         document.getElementById("typeText").innerHTML += "<br><br>";
         charIndex = 0;
         lineIndex++;
-        setTimeout(startTyping, 500);
+        setTimeout(startTyping, 400);
       }
     }
   }
 
-  /* ---------- FLOATING HEARTS ---------- */
+  /* HEARTS */
   function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
