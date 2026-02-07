@@ -118,7 +118,7 @@
     }
 
     .hidden {
-      display: none;
+      display: none !important;
     }
   </style>
 </head>
@@ -145,12 +145,17 @@
   </footer>
 </div>
 
-<!-- 🎶 SOFT MUSIC -->
+<!-- 🎶 BACKGROUND MUSIC -->
 <audio id="bgMusic" loop>
   <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+  /* FORCE HIDE MAIN CONTENT ON LOAD */
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("mainContent").classList.add("hidden");
+  });
+
   /* ---------- REVEAL ---------- */
   function reveal() {
     document.getElementById("revealScreen").style.display = "none";
@@ -161,7 +166,7 @@
 
   /* ---------- TYPEWRITER MESSAGE ---------- */
   const lines = [
-    "Today is special… because **you** were born today ✨",
+    "Today is special… because you were born today ✨",
     "",
     "I know I may have hurt you, knowingly or unknowingly.",
     "For that… I’m truly sorry 😔",
