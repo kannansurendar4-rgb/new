@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>For You ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: "Segoe UI", sans-serif;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      color: #fff;
-      text-align: center;
-      padding: 20px;
+      color: white;
+      overflow-x: hidden;
     }
 
-    .card {
-      max-width: 800px;
-      margin: auto;
-      background: rgba(255,255,255,0.12);
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    /* ---------- REVEAL SCREEN ---------- */
+    .reveal {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
       animation: fadeIn 2s ease;
     }
 
-    h1 {
+    .reveal h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .reveal h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .reveal p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 25px;
+    }
+
+    .reveal button {
+      background: white;
+      color: #ff5f9e;
+      border: none;
+      padding: 14px 34px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .reveal button:hover {
+      transform: scale(1.1);
+    }
+
+    /* ---------- MAIN CARD ---------- */
+    .card {
+      max-width: 850px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeInUp 2s ease;
+    }
+
+    .card h1 {
       font-size: 2.8rem;
       margin-bottom: 10px;
     }
 
-    h2 {
+    .card h2 {
       font-size: 2rem;
       margin-bottom: 20px;
     }
 
-    p {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      margin-bottom: 15px;
-    }
-
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 22px;
-      animation: float 6s linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .message {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      min-height: 220px;
     }
 
     footer {
@@ -63,55 +91,125 @@
       font-size: 1.1rem;
       opacity: 0.9;
     }
+
+    /* ---------- HEARTS ---------- */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 22px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>🎂 Happy Birthday 🎂</h1>
-    <h2>dii pondati ❤️</h2>
+<!-- 🎁 REVEAL SCREEN -->
+<div class="reveal" id="revealScreen">
+  <h1>🎁</h1>
+  <h2>Hey dii…</h2>
+  <p>I made something from my heart ❤️<br>Open it when you’re ready.</p>
+  <button onclick="reveal()">Tap to open</button>
+</div>
 
-    <p>
-      Today is special… because **you** were born today 🌸  
-      And I really wanted to be part of your smile.
-    </p>
+<!-- 💖 MAIN CONTENT -->
+<div class="card hidden" id="mainContent">
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <h2>dii pondati ❤️</h2>
 
-    <p>
-      I know I may have hurt you, knowingly or unknowingly.  
-      For that… **I’m truly sorry** 😔  
-      Not just saying it — I mean it from my heart.
-    </p>
+  <div class="message" id="typeText"></div>
 
-    <p>
-      You matter to me.  
-      Your feelings matter to me.  
-      And no matter what, I wish you happiness — today and always ✨
-    </p>
+  <footer>
+    Always here for you ❤️
+  </footer>
+</div>
 
-    <p>
-      💖 I LOVE YOU 💖  
-      Not to pressure you…  
-      Just to let you know my heart is honest.
-    </p>
+<!-- 🎶 SOFT MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
 
-    <footer>
-      Always here for you ❤️
-    </footer>
-  </div>
+<script>
+  /* ---------- REVEAL ---------- */
+  function reveal() {
+    document.getElementById("revealScreen").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+    document.getElementById("bgMusic").play();
+    startTyping();
+  }
 
-  <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
+  /* ---------- TYPEWRITER MESSAGE ---------- */
+  const lines = [
+    "Today is special… because **you** were born today ✨",
+    "",
+    "I know I may have hurt you, knowingly or unknowingly.",
+    "For that… I’m truly sorry 😔",
+    "Not just saying it — I mean it from my heart.",
+    "",
+    "You matter to me.",
+    "Your feelings matter to me.",
+    "",
+    "No matter what, I wish you happiness — today and always 🌸",
+    "",
+    "💖 I LOVE YOU 💖",
+    "Not to pressure you…",
+    "Just to let you know my heart is honest."
+  ];
+
+  let lineIndex = 0;
+  let charIndex = 0;
+  const speed = 35;
+
+  function startTyping() {
+    if (lineIndex < lines.length) {
+      const currentLine = lines[lineIndex];
+      if (charIndex < currentLine.length) {
+        document.getElementById("typeText").innerHTML += currentLine.charAt(charIndex);
+        charIndex++;
+        setTimeout(startTyping, speed);
+      } else {
+        document.getElementById("typeText").innerHTML += "<br><br>";
+        charIndex = 0;
+        lineIndex++;
+        setTimeout(startTyping, 500);
+      }
     }
-    setInterval(createHeart, 450);
-  </script>
+  }
+
+  /* ---------- FLOATING HEARTS ---------- */
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 450);
+</script>
 
 </body>
 </html>
